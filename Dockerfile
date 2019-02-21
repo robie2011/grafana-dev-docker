@@ -1,7 +1,7 @@
 # Instructions from http://docs.grafana.org/project/building_from_source/
 
 FROM golang:1.11.5-alpine3.9
-RUN apk add --update git nodejs build-base make python2
+RUN apk add --update git nodejs npm build-base make python2
 RUN npm i -g node-gyp
 
 # Building Backend
