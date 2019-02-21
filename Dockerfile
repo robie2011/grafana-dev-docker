@@ -5,15 +5,14 @@ RUN apk add --update git nodejs npm build-base make python2
 RUN npm i -g node-gyp
 
 # Building Backend
-RUN mkdir /data && cd /data && \
-    export GOPATH=`pwd` \
-    && go get github.com/grafana/grafana && \
+RUN mkdir /data && cd /data && export GOPATH=`pwd` && \
+    (go get github.com/grafana/grafana || $True) && \
     cd $GOPATH/src/github.com/grafana/grafana && \
     go run build.go setup && \
     go run build.go build
 
+WORKDIR /data/src/github.com/grafana/grafana
+
 # Building Frontend
 RUN npm install -g yarn && \
-    yarn install --pure-lockfile && \
-    yarn watch
-
+    yarn install --pure-lockfile
